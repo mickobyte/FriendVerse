@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  --font-quicksand: 'Quicksand', sans-serif;
+  --font-pacifico: 'Pacifico', cursive;
+  --color-primary: #6C63FF;
+  --color-primary-light: #8B83FF;
+  --color-primary-dark: #4F46E5;
+  --color-secondary: #FF6B9D;
+  --color-secondary-light: #FF8FB5;
+  --color-accent: #FFD93D;
+  --color-accent-dark: #F0C800;
+  --color-success: #4CAF50;
+  --color-info: #2196F3;
+  --color-warm: #FF8A65;
+  --color-bg: #F8F6FF;
+  --color-bg-card: #FFFFFF;
+  --color-bg-dark: #1A1A2E;
+  --color-text-primary: #2D2B55;
+  --color-text-secondary: #6B6B8D;
+  --color-border: #E8E6F0;
+}
+
+* {
+  font-family: 'Quicksand', sans-serif;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-light);
+  border-radius: 999px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(108, 99, 255, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(108, 99, 255, 0.6); }
+}
+
+@keyframes confetti-fall {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes birthday-bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-fadeInUp { animation: fadeInUp 0.5s ease-out forwards; }
+.animate-slideIn { animation: slideIn 0.4s ease-out forwards; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-birthday-bounce { animation: birthday-bounce 1s ease-in-out infinite; }
+
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.gradient-primary {
+  background: linear-gradient(135deg, #6C63FF, #FF6B9D);
+}
+
+.gradient-warm {
+  background: linear-gradient(135deg, #FF6B9D, #FFD93D);
+}
+
+.gradient-cool {
+  background: linear-gradient(135deg, #6C63FF, #2196F3);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #6C63FF, #FF6B9D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
