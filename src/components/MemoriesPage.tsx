@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type Dispatch, type SetStateAction } from 'react';
 import { Friend, Memory } from '../types';
 import { Plus, X, Calendar, Users } from 'lucide-react';
 import { format } from 'date-fns';
@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 interface MemoriesPageProps {
   friends: Friend[];
   memories: Memory[];
-  setMemories: (m: Memory[]) => void;
+  setMemories: Dispatch<SetStateAction<Memory[]>>;
 }
 
 const memoryTypes: { value: Memory['type']; label: string; emoji: string }[] = [
@@ -42,7 +42,7 @@ export default function MemoriesPage({ friends, memories, setMemories }: Memorie
       taggedFriends: friends.map(f => f.id),
       type: form.type,
     };
-    setMemories([...memories, mem]);
+    setMemories(prev => [...prev, mem]);
     setForm({ title: '', description: '', date: '', type: 'hangout', photoUrl: '' });
     setShowAdd(false);
   };

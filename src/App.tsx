@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TabType } from './types';
+import { TabType, Friend } from './types';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import {
   friends as defaultFriends,
@@ -23,6 +23,15 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<TabType>('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentUserId] = useState('1');
+  const fallbackUser: Friend = {
+    id: '0',
+    name: 'Guest',
+    avatar: '👤',
+    birthday: '01-01',
+    bio: 'Welcome to FriendVerse',
+    color: '#6C63FF',
+    joinedDate: '2024-01-01',
+  };
 
   // Persisted state
   const [friends, setFriends] = useLocalStorage('fv-friends', defaultFriends);
@@ -32,7 +41,7 @@ export default function App() {
   const [wishes, setWishes] = useLocalStorage('fv-wishes', sampleBirthdayWishes);
   const [gallery, setGallery] = useLocalStorage('fv-gallery', defaultGallery);
 
-  const currentUser = friends.find(f => f.id === currentUserId) || friends[0];
+  const currentUser = friends.find(f => f.id === currentUserId) || friends[0] || fallbackUser;
 
   const renderPage = () => {
     switch (activeTab) {

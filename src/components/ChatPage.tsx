@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, type Dispatch, type SetStateAction } from 'react';
 import { Friend, ChatMessage } from '../types';
 import { Send, Smile, Hash } from 'lucide-react';
 import { format } from 'date-fns';
@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 interface ChatPageProps {
   friends: Friend[];
   messages: ChatMessage[];
-  setMessages: (msgs: ChatMessage[]) => void;
+  setMessages: Dispatch<SetStateAction<ChatMessage[]>>;
   currentUserId: string;
 }
 
@@ -29,13 +29,13 @@ export default function ChatPage({ friends, messages, setMessages, currentUserId
       content: input,
       timestamp: new Date().toISOString(),
     };
-    setMessages([...messages, msg]);
+    setMessages(prev => [...prev, msg]);
     setInput('');
     setShowEmoji(false);
   };
 
   const addReaction = (msgId: string, emoji: string) => {
-    setMessages(messages.map(m => {
+    setMessages(prev => prev.map(m => {
       if (m.id !== msgId) return m;
       const reactions = m.reactions || [];
       const existing = reactions.find(r => r.userId === currentUserId && r.emoji === emoji);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type Dispatch, type SetStateAction } from 'react';
 import { Friend, DiaryEntry, Comment } from '../types';
 import { Heart, MessageCircle, Send, Plus, X, Tag, Smile } from 'lucide-react';
 import { format } from 'date-fns';
@@ -7,7 +7,7 @@ import { moods } from '../store';
 interface DiaryPageProps {
   friends: Friend[];
   entries: DiaryEntry[];
-  setEntries: (entries: DiaryEntry[]) => void;
+  setEntries: Dispatch<SetStateAction<DiaryEntry[]>>;
   currentUserId: string;
 }
 
@@ -35,7 +35,7 @@ export default function DiaryPage({ friends, entries, setEntries, currentUserId 
       tags: tags.length > 0 ? tags : undefined,
       media: imageUrl ? [{ type: 'image', url: imageUrl }] : undefined,
     };
-    setEntries([...entries, entry]);
+    setEntries(prev => [...prev, entry]);
     setNewContent('');
     setSelectedMood('');
     setTags([]);
@@ -44,7 +44,7 @@ export default function DiaryPage({ friends, entries, setEntries, currentUserId 
   };
 
   const toggleLike = (entryId: string) => {
-    setEntries(entries.map(e => {
+    setEntries(prev => prev.map(e => {
       if (e.id !== entryId) return e;
       const liked = e.likes.includes(currentUserId);
       return { ...e, likes: liked ? e.likes.filter(l => l !== currentUserId) : [...e.likes, currentUserId] };
@@ -60,7 +60,7 @@ export default function DiaryPage({ friends, entries, setEntries, currentUserId 
       content: text,
       timestamp: new Date().toISOString(),
     };
-    setEntries(entries.map(e => e.id === entryId ? { ...e, comments: [...e.comments, comment] } : e));
+    setEntries(prev => prev.map(e => e.id === entryId ? { ...e, comments: [...e.comments, comment] } : e));
     setCommentInputs({ ...commentInputs, [entryId]: '' });
   };
 

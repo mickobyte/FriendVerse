@@ -31,7 +31,7 @@ export default function Sidebar({ activeTab, setActiveTab, currentUser, isMobile
       )}
       
       <aside className={`
-        fixed top-0 left-0 h-full w-72 bg-white/90 backdrop-blur-xl border-r border-border z-50
+        fixed top-0 left-0 h-full w-72 bg-white/90 backdrop-blur-xl border-r border-border z-50 flex flex-col
         transform transition-transform duration-300 ease-in-out
         lg:translate-x-0 lg:static lg:z-auto
         ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}
@@ -50,7 +50,7 @@ export default function Sidebar({ activeTab, setActiveTab, currentUser, isMobile
         </div>
 
         {/* Navigation */}
-        <nav className="p-4 space-y-1">
+        <nav className="p-4 space-y-1 flex-1 overflow-y-auto pb-24">
           {tabs.map(tab => (
             <button
               key={tab.id}
@@ -70,11 +70,11 @@ export default function Sidebar({ activeTab, setActiveTab, currentUser, isMobile
         </nav>
 
         {/* Current User */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-border">
+        <div className="sticky bottom-0 left-0 right-0 p-4 border-t border-border bg-white/90 backdrop-blur-xl mt-auto">
           <div className="flex items-center gap-3 px-3 py-2 rounded-xl bg-primary/5">
-            <span className="text-2xl">{currentUser.avatar}</span>
+            <span className="text-2xl">{currentUser?.avatar ?? '👤'}</span>
             <div className="min-w-0">
-              <p className="text-sm font-bold truncate">{currentUser.name}</p>
+              <p className="text-sm font-bold truncate">{currentUser?.name ?? 'Guest'}</p>
               <p className="text-xs text-text-secondary">Online ● Active</p>
             </div>
             <div className="w-2.5 h-2.5 bg-success rounded-full ml-auto flex-shrink-0" />

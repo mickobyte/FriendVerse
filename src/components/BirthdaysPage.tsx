@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type Dispatch, type SetStateAction } from 'react';
 import { Friend, BirthdayWish } from '../types';
 import { Gift, Send, Cake, Heart } from 'lucide-react';
 import { format, differenceInDays } from 'date-fns';
@@ -6,7 +6,7 @@ import { format, differenceInDays } from 'date-fns';
 interface BirthdaysPageProps {
   friends: Friend[];
   wishes: BirthdayWish[];
-  setWishes: (w: BirthdayWish[]) => void;
+  setWishes: Dispatch<SetStateAction<BirthdayWish[]>>;
   currentUserId: string;
 }
 
@@ -35,7 +35,7 @@ export default function BirthdaysPage({ friends, wishes, setWishes, currentUserI
       message: wishMessage,
       timestamp: new Date().toISOString(),
     };
-    setWishes([...wishes, wish]);
+    setWishes(prev => [...prev, wish]);
     setWishMessage('');
   };
 

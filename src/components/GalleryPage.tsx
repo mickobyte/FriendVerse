@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type Dispatch, type SetStateAction } from 'react';
 import { Friend } from '../types';
 import { Plus, X, Download, ZoomIn, Heart } from 'lucide-react';
 
@@ -12,7 +12,7 @@ interface GalleryImage {
 interface GalleryPageProps {
   friends: Friend[];
   images: GalleryImage[];
-  setImages: (imgs: GalleryImage[]) => void;
+  setImages: Dispatch<SetStateAction<GalleryImage[]>>;
   currentUserId: string;
 }
 
@@ -31,7 +31,7 @@ export default function GalleryPage({ friends, images, setImages, currentUserId 
       caption: newCaption || 'No caption',
       uploadedBy: currentUserId,
     };
-    setImages([...images, img]);
+    setImages(prev => [...prev, img]);
     setNewUrl('');
     setNewCaption('');
     setShowAdd(false);

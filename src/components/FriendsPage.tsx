@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, type Dispatch, type SetStateAction } from 'react';
 import { Friend } from '../types';
 import { Plus, X, Calendar, Heart, Star, Edit2, Save } from 'lucide-react';
 import { format, differenceInDays } from 'date-fns';
 
 interface FriendsPageProps {
   friends: Friend[];
-  setFriends: (f: Friend[]) => void;
+  setFriends: Dispatch<SetStateAction<Friend[]>>;
 }
 
 export default function FriendsPage({ friends, setFriends }: FriendsPageProps) {
@@ -27,13 +27,13 @@ export default function FriendsPage({ friends, setFriends }: FriendsPageProps) {
       color: form.color,
       joinedDate: new Date().toISOString().split('T')[0],
     };
-    setFriends([...friends, friend]);
+    setFriends(prev => [...prev, friend]);
     setForm({ name: '', avatar: '😀', birthday: '', bio: '', color: '#6C63FF' });
     setShowAdd(false);
   };
 
   const updateFriend = (id: string) => {
-    setFriends(friends.map(f => f.id === id ? { ...f, name: form.name || f.name, bio: form.bio || f.bio, avatar: form.avatar || f.avatar, color: form.color || f.color } : f));
+    setFriends(prev => prev.map(f => f.id === id ? { ...f, name: form.name || f.name, bio: form.bio || f.bio, avatar: form.avatar || f.avatar, color: form.color || f.color } : f));
     setEditingId(null);
   };
 
